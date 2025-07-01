@@ -1,3 +1,3 @@
 rapidapi:
-  key: d534cce466msh05ee341b008faaap1dba2ajsnfbdfa89af075
-  host: social-download-all-in-one.p.rapidapi.com
+  key:  ${RAPIDAPI_KEY}
+  host:  ${RAPIDAPI_HOST}

@@ -15,7 +15,13 @@ import java.nio.charset.StandardCharsets;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin("https://clipzip-akashakki018s-projects.vercel.app/")// open for dev; tighten in prod
+@CrossOrigin(
+        origins = "https://clipzip.vercel.app",
+        methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+                RequestMethod.DELETE, RequestMethod.OPTIONS},
+        allowedHeaders = "*",
+        allowCredentials = "true"
+)
 public class VideoController {
 
     private final VideoDownloadService service;
