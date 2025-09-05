@@ -15,7 +15,6 @@ import java.nio.charset.StandardCharsets;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin("https://clipzip.vercel.app")
 public class VideoController {
 
     private final VideoDownloadService service;
