@@ -21,25 +21,25 @@ public class VideoController {
     private final VideoDownloadService service;
     public VideoController(VideoDownloadService service) { this.service = service; }
 
-    /* ═══════════ 1. RapidAPI JSON  ═══════════ */
+
     @PostMapping("/download")
     public ResponseEntity<String> download(@RequestBody UrlRequest body) {
         return ResponseEntity.ok(service.fetchDownloadLinks(body.url()));
     }
 
-    /* ═══════════ 2. Stream any VIDEO file  ═══════════ */
+
     @GetMapping("/proxy")
     public void proxyVideo(@RequestParam String url, HttpServletResponse resp) {
         streamBinary(url, resp, false);
     }
 
-    /* ═══════════ 3. Stream thumbnails (images) ═══════ */
+
     @GetMapping("/img-proxy")
     public void proxyImage(@RequestParam String url, HttpServletResponse resp) {
         streamBinary(url, resp, true);
     }
 
-    /* ─── shared streamer ─── */
+
     private void streamBinary(String url, HttpServletResponse resp, boolean imageMode) {
         try {
             URL remote = new URL(url);
@@ -52,14 +52,14 @@ public class VideoController {
                 resp.sendError(502, "Remote fetch failed"); return;
             }
 
-            /* content-type */
+
             String cType = con.getContentType();
             if (cType == null || cType.isBlank())
                 cType = imageMode ? MediaType.IMAGE_JPEG_VALUE
                         : MediaType.APPLICATION_OCTET_STREAM_VALUE;
             resp.setContentType(cType);
 
-            /* filename header only for downloads */
+
             if (!imageMode) {
                 String raw = remote.getPath().substring(remote.getPath().lastIndexOf('/') + 1);
                 raw = raw.isBlank() ? "video" : raw.split("\\?")[0];
@@ -82,6 +82,6 @@ public class VideoController {
         }
     }
 
-    /* DTO for /download */
+    /* DTO for download */
     public record UrlRequest(String url) {}
 }
