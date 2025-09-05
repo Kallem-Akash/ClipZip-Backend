@@ -21,6 +21,10 @@ public class VideoController {
     private final VideoDownloadService service;
     public VideoController(VideoDownloadService service) { this.service = service; }
 
+    @GetMapping("hello")
+    public String greet(){
+        return "hello";
+    }
 
     @PostMapping("/download")
     public ResponseEntity<String> download(@RequestBody UrlRequest body) {
